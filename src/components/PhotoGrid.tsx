@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useRef } from "react";
+import { useCallback, useMemo, useState } from "react";
 import {
   ActivityIndicator,
   Dimensions,
@@ -54,18 +54,18 @@ export function PhotoGrid({
   records,
   selectedIds
 }: PhotoGridProps) {
-  const visibleRangeRef = useRef({ start: 0, end: 0 });
+  const [visibleRange, setVisibleRange] = useState({ start: 0, end: 0 });
 
   const currentWindowReady = useMemo(() => {
-    const { start, end } = visibleRangeRef.current;
+    const { start, end } = visibleRange;
     const visibleAssets = assets.slice(start, end + 1);
     return (
       visibleAssets.length === 0 ||
       visibleAssets.every((asset) => decisions[asset.id] || isReady(asset.id, records))
     );
-  }, [assets, decisions, records]);
+  }, [assets, decisions, records, visibleRange]);
 
-  const onViewableItemsChanged = useRef(
+  const onViewableItemsChanged = useCallback(
     ({ viewableItems }: { viewableItems: ViewToken<Asset>[] }) => {
       const indexes = viewableItems
         .map((token) => token.index)
@@ -77,10 +77,11 @@ export function PhotoGrid({
 
       const start = Math.min(...indexes);
       const end = Math.max(...indexes);
-      visibleRangeRef.current = { start, end };
+      setVisibleRange({ start, end });
       onScheduleWindow(start, end);
-    }
-  ).current;
+    },
+    [onScheduleWindow]
+  );
 
   const renderItem = useCallback(
     ({ item }: ListRenderItemInfo<Asset>) => (
