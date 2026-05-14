@@ -1,0 +1,29 @@
+{
+  "expo": {
+    "name": "unimportant-pics",
+    "slug": "unimportant-pics",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "automatic",
+    "scheme": "unimportantpics",
+    "assetBundlePatterns": ["**/*"],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "app.unimportantpics.mobile",
+      "infoPlist": {
+        "NSPhotoLibraryUsageDescription": "unimportant-pics reviews photos you choose so it can recommend what to keep, review, or delete.",
+        "NSPhotoLibraryAddUsageDescription": "unimportant-pics needs photo library access to help you confirm deletions through iOS."
+      }
+    },
+    "plugins": [
+      [
+        "expo-media-library",
+        {
+          "photosPermission": "Allow unimportant-pics to review your photo library and suggest photos to keep, review, or delete.",
+          "savePhotosPermission": "Allow unimportant-pics to request deletion after you confirm your delete list.",
+          "isAccessMediaLocationEnabled": false
+        }
+      ]
+    ]
+  }
+}
