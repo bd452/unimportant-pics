@@ -1,4 +1,11 @@
 node_modules/
+.yarn/*
+!.yarn/releases
+!.yarn/patches
+!.yarn/plugins
+!.yarn/sdks
+!.yarn/versions
+.pnp.*
 .expo/
 dist/
 web-build/
@@ -9,3 +16,4 @@ web-build/
 npm-debug.log*
 yarn-error.log*
 *.tsbuildinfo
+.vercel
